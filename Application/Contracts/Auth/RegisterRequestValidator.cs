@@ -3,26 +3,32 @@ using FluentValidation;
 
 namespace Application.Contracts.Auth;
 
-
-
-public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
+public class RegisterrequestValidator : AbstractValidator<Registerrequest>
 {
 
-    public RegisterRequestValidator()
+    public RegisterrequestValidator()
     {
-        RuleFor(x => x.UserName)
+        RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage("UserName is required")
+            .WithMessage("Email is required")
             .EmailAddress();
 
         RuleFor(x => x.Password)
             .NotEmpty()
             .WithMessage("Password is required")
-            .Length(8, 16)
-            .WithMessage("Password must be between 8 and 16 characters")
             .Matches(RegexPatterns.Password)
-            .WithMessage("Password should contains Lowercase,Uppercase,Number and Special character ");
+            .WithMessage("Password should be 8 digits and should contains Lowercase,Uppercase,Number and Special character ");
 
+        RuleFor(x => x.UserFullName)
+            .NotEmpty()
+            .WithMessage("LastName is required")
+            .Length(3, 100);
+
+
+        RuleFor(x => x.UserAdress)
+            .NotEmpty()
+            .WithMessage("LastName is required")
+            .Length(3, 100);
     }
-}
 
+}

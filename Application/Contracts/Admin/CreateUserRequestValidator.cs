@@ -1,7 +1,7 @@
 ﻿using Application.Abstraction.Consts;
 using FluentValidation;
 
-namespace Application.Contracts.Users;
+namespace Medical_E_Commerce.Contracts.Admin;
 
 public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
 {
@@ -16,15 +16,15 @@ public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
             .Matches(RegexPatterns.Password)
             .WithMessage("Password should be 8 digits and should contains Lowercase,Uppercase,Number and Special character ");
 
-        RuleFor(x => x.FirstName)
+        RuleFor(x => x.UserFullName)
             .NotEmpty()
-            .WithMessage("LastName is required")
+            .WithMessage("UserFullName is required")
             .Length(3, 100);
 
 
-        RuleFor(x => x.LastName)
+        RuleFor(x => x.UserAddress)
             .NotEmpty()
-            .WithMessage("LastName is required")
+            .WithMessage("UserAddress is required")
             .Length(3, 100);
 
         RuleFor(x => x.Roles)

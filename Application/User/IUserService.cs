@@ -1,5 +1,5 @@
 ﻿using Application.Abstraction;
-using Application.Contracts.Users;
+using Application.Contracts.User;
 
 namespace Application.User;
 

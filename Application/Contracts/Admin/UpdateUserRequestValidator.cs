@@ -1,6 +1,7 @@
-﻿using FluentValidation;
+﻿using Application.Contracts.Admin;
+using FluentValidation;
 
-namespace Application.Contracts.Users;
+namespace Medical_E_Commerce.Contracts.Admin;
 
 public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
 {
@@ -10,15 +11,15 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
             .NotEmpty()
             .EmailAddress();
 
-        RuleFor(x => x.FirstName)
+        RuleFor(x => x.UserFullName)
             .NotEmpty()
-            .WithMessage("LastName is required")
+            .WithMessage("UserFullName is required")
             .Length(3, 100);
 
 
-        RuleFor(x => x.LastName)
+        RuleFor(x => x.UserAddress)
             .NotEmpty()
-            .WithMessage("LastName is required")
+            .WithMessage("User address is required")
             .Length(3, 100);
 
         RuleFor(x => x.Roles)
@@ -30,5 +31,4 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
             .WithMessage("you can't add duplicated permission for the role")
             .When(c => c.Roles != null);
     }
-
 }

@@ -1,5 +1,6 @@
 ﻿using Application.Abstraction;
 using Application.Abstraction.Errors;
+using Application.Contracts.User;
 using Application.Contracts.Users;
 using Domain.Entities;
 using Mapster;

@@ -1,8 +1,13 @@
 ﻿namespace Application.Contracts.Auth;
+
 public record AuthResponse
 (
     string Id,
-    string UserName,
+    string Email,
+    string UserFullName,
+    string UserAddress,
     string Token,
-    int ExpiresIn
+    int ExpiresIn,
+    string RefreshToken,
+    DateTime RefreshExpiresIn
     );

@@ -1,4 +1,4 @@
-﻿namespace Application.Contracts.Users;
+﻿namespace Application.Contracts.User;
 
 public record ChangePasswordRequest
 (

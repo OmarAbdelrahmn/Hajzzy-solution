@@ -1,8 +1,10 @@
-﻿namespace Application.Contracts.Roles;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Application.Contracts.Roles;
 
 public record RoleRequest
 (
-    string OldName,
-    string NewName
-    //IList<string> Permissions
+    [Length(3,20)]
+    [Required]
+    string Name
     );

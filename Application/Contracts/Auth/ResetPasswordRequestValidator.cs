@@ -3,21 +3,26 @@ using FluentValidation;
 
 namespace Application.Contracts.Auth;
 
-public class AuthRequestValidator : AbstractValidator<AuthRequest>
+public class ResetPasswordRequestValidator : AbstractValidator<ResetPasswordRequest>
 {
 
-    public AuthRequestValidator()
+    public ResetPasswordRequestValidator()
     {
         RuleFor(x => x.Email)
             .NotEmpty()
             .WithMessage("Email is required")
             .EmailAddress();
 
+        RuleFor(x => x.Code)
+            .NotEmpty();
+
         RuleFor(x => x.Password)
-            .NotEmpty()
+        .NotEmpty()
             .WithMessage("Password is required")
-            .Length(8, 50)
             .Matches(RegexPatterns.Password)
             .WithMessage("Password should be 8 digits and should contains Lowercase,Uppercase,Number and Special character ");
+
+
     }
+
 }
