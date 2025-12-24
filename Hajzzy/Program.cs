@@ -24,12 +24,18 @@ var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 using var scope = scopeFactory.CreateScope();
 var notificationService = scope.ServiceProvider.GetRequiredService<INotinficationService>();
 
-RecurringJob.AddOrUpdate("try news", () => notificationService.SendPharmacyNotification(), Cron.Weekly);
+RecurringJob.AddOrUpdate("try daily news", () => notificationService.SendPharmacyNotification(), Cron.Daily);
+
+RecurringJob.AddOrUpdate<INotinficationService>("try monthly news", x => x.SendPharmacyNotification(), Cron.Monthly);
+
+RecurringJob.AddOrUpdate("try weekly news", () => notificationService.SendPharmacyNotification(), Cron.Weekly);
 
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseRouting();
 
 app.MapControllers();
 

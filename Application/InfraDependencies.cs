@@ -18,6 +18,7 @@ using System.Text;
 using Hangfire;
 using Application.Helpers;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Application.Notifications;
 
 namespace Application;
 public static class InfraDependencies
@@ -33,6 +34,7 @@ public static class InfraDependencies
         Services.AddScoped<IUserService, UserServices>();
         Services.AddScoped<IAuthService, AuthService>();
         Services.AddScoped<IEmailSender, EmailService>();
+        Services.AddScoped<INotinficationService, NotinficationService>();
 
         Services.AddProblemDetails();
 

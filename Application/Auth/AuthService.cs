@@ -50,12 +50,15 @@ public class AuthService(
         if (user.IsDisable)
             return Result.Failure<AuthResponse>(UserErrors.Disableuser);
 
+        var userRoles = await manager.GetRolesAsync(user);
+
+        if (!userRoles.Contains(DefaultRoles.User))
+            return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
         var result = await signInManager.PasswordSignInAsync(user, request.Password, false, true);
 
         if (result.Succeeded)
         {
-            var userRoles = await manager.GetRolesAsync(user);
-
             var (Token, ExpiresIn) = jwtProvider.GenerateToken(user,userRoles.FirstOrDefault()!);
 
             var RefreshToken = GenerateRefreshToken();
@@ -75,7 +78,7 @@ public class AuthService(
             var response = new AuthResponse(
                 user.Id,
                 user.Email!,
-                user.FullName??" ",
+                user.FullName ??" ",
                 user.Address ?? " ",
                 Token,
                 ExpiresIn * 60,
@@ -349,4 +352,179 @@ public class AuthService(
         return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status401Unauthorized));
     }
 
+    public async Task<Result<AuthResponse>> HAdminSingInAsync(AuthRequest request)
+    {
+        if (await manager.FindByEmailAsync(request.Email) is not { } user)
+            return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
+        if (user.IsDisable)
+            return Result.Failure<AuthResponse>(UserErrors.Disableuser);
+
+        var userRoles = await manager.GetRolesAsync(user);
+
+        if (!userRoles.Contains(DefaultRoles.HotelAdmin))
+            return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
+        var result = await signInManager.PasswordSignInAsync(user, request.Password, false, true);
+
+        if (result.Succeeded)
+        {
+
+            var (Token, ExpiresIn) = jwtProvider.GenerateToken(user, userRoles.FirstOrDefault()!);
+
+            var RefreshToken = GenerateRefreshToken();
+
+            var RefreshExpiresIn = DateTime.UtcNow.AddDays(RefreshTokenExpiryDays);
+
+
+            user.RefreshTokens.Add(new RefreshToken
+            {
+                Token = RefreshToken,
+                ExpiresOn = RefreshExpiresIn,
+
+            });
+
+            await manager.UpdateAsync(user);
+
+            var response = new AuthResponse(
+                user.Id,
+                user.Email!,
+                user.FullName ?? " ",
+                user.Address ?? " ",
+                Token,
+                ExpiresIn * 60,
+                RefreshToken,
+                RefreshExpiresIn
+            );
+
+            return Result.Success(response);
+        }
+
+        var error = result.IsNotAllowed ?
+             UserErrors.EmailNotConfirmed :
+             result.IsLockedOut ?
+             UserErrors.userLockedout :
+             UserErrors.InvalidCredentials;
+
+
+        return Result.Failure<AuthResponse>(error);
+    }
+
+    public async Task<Result<AuthResponse>> CAdminSingInAsync(AuthRequest request)
+    {
+        if (await manager.FindByEmailAsync(request.Email) is not { } user)
+            return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
+        if (user.IsDisable)
+            return Result.Failure<AuthResponse>(UserErrors.Disableuser);
+
+        var result = await signInManager.PasswordSignInAsync(user, request.Password, false, true);
+
+
+        var userRoles = await manager.GetRolesAsync(user);
+
+        if (!userRoles.Contains(DefaultRoles.CityAdmin))
+            return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
+        if (result.Succeeded)
+        {
+
+            var (Token, ExpiresIn) = jwtProvider.GenerateToken(user, userRoles.FirstOrDefault()!);
+
+            var RefreshToken = GenerateRefreshToken();
+
+            var RefreshExpiresIn = DateTime.UtcNow.AddDays(RefreshTokenExpiryDays);
+
+
+            user.RefreshTokens.Add(new RefreshToken
+            {
+                Token = RefreshToken,
+                ExpiresOn = RefreshExpiresIn,
+
+            });
+
+            await manager.UpdateAsync(user);
+
+            var response = new AuthResponse(
+                user.Id,
+                user.Email!,
+                user.FullName ?? " ",
+                user.Address ?? " ",
+                Token,
+                ExpiresIn * 60,
+                RefreshToken,
+                RefreshExpiresIn
+            );
+
+            return Result.Success(response);
+        }
+
+        var error = result.IsNotAllowed ?
+             UserErrors.EmailNotConfirmed :
+             result.IsLockedOut ?
+             UserErrors.userLockedout :
+             UserErrors.InvalidCredentials;
+
+
+        return Result.Failure<AuthResponse>(error);
+    }
+
+    public async Task<Result<AuthResponse>> SAdminSingInAsync(AuthRequest request)
+    {
+        if (await manager.FindByEmailAsync(request.Email) is not { } user)
+            return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
+        if (user.IsDisable)
+            return Result.Failure<AuthResponse>(UserErrors.Disableuser);
+
+
+        var userRoles = await manager.GetRolesAsync(user);
+
+        if (!userRoles.Contains(DefaultRoles.SuperAdmin))
+            return Result.Failure<AuthResponse>(UserErrors.InvalidCredentials);
+
+
+        var result = await signInManager.PasswordSignInAsync(user, request.Password, false, true);
+
+        if (result.Succeeded)
+        {
+            var (Token, ExpiresIn) = jwtProvider.GenerateToken(user, userRoles.FirstOrDefault()!);
+
+            var RefreshToken = GenerateRefreshToken();
+
+            var RefreshExpiresIn = DateTime.UtcNow.AddDays(RefreshTokenExpiryDays);
+
+
+            user.RefreshTokens.Add(new RefreshToken
+            {
+                Token = RefreshToken,
+                ExpiresOn = RefreshExpiresIn,
+
+            });
+
+            await manager.UpdateAsync(user);
+
+            var response = new AuthResponse(
+                user.Id,
+                user.Email!,
+                user.FullName ?? " ",
+                user.Address ?? " ",
+                Token,
+                ExpiresIn * 60,
+                RefreshToken,
+                RefreshExpiresIn
+            );
+
+            return Result.Success(response);
+        }
+
+        var error = result.IsNotAllowed ?
+             UserErrors.EmailNotConfirmed :
+             result.IsLockedOut ?
+             UserErrors.userLockedout :
+             UserErrors.InvalidCredentials;
+
+
+        return Result.Failure<AuthResponse>(error);
+    }
 }

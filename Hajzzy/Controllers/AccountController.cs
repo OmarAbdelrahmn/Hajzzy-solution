@@ -28,8 +28,8 @@ public class AccountController(IUserService service) : ControllerBase
     public async Task<IActionResult> UpdateUserProfile([FromBody] UpdateUserProfileRequest request)
     {
         var result = await service.UpdateUserProfile(User.GetUserId()!, request);
-
-        return NoContent();
+        
+        return Ok(new Re("done"));
     }
 
     [HttpPut("change-passord")]
@@ -37,7 +37,7 @@ public class AccountController(IUserService service) : ControllerBase
     {
         var result = await service.ChangePassword(User.GetUserId()!, request);
 
-        return result.IsSuccess ? NoContent() : result.ToProblem();
+        return result.IsSuccess ? Ok(new Re("done")) : result.ToProblem();
     }
     
     [HttpPut("change-user-role")]
@@ -45,7 +45,7 @@ public class AccountController(IUserService service) : ControllerBase
     {
         var result = await service.ChangeRoleForUser(request.Email,request.NewRole);
 
-        return result.IsSuccess ? NoContent() : result.ToProblem();
+        return result.IsSuccess ? Ok(new Re("done")) : result.ToProblem();
     }
 
 }

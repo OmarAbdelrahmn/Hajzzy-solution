@@ -9,6 +9,9 @@ namespace Application.Auth;
 public interface IAuthService
 {
     Task<Result<AuthResponse>> SingInAsync(AuthRequest request);
+    Task<Result<AuthResponse>> HAdminSingInAsync(AuthRequest request);
+    Task<Result<AuthResponse>> CAdminSingInAsync(AuthRequest request);
+    Task<Result<AuthResponse>> SAdminSingInAsync(AuthRequest request);
     Task<Result> UserRegisterAsync(RegisterRequest request);
     Task<Result> ConfirmEmailAsync(ConfirmEmailRequest request);
     Task<Result> ResendEmailAsync(ResendEmailRequest request);

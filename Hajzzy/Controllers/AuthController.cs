@@ -22,14 +22,41 @@ public class AuthController(IAuthService service) : ControllerBase
             Ok(response.Value) :
             response.ToProblem();
     }
+    [HttpPost("hotel-admin-login")]
+    public async Task<IActionResult> Login2([FromBody] AuthRequest request)
+    {
+        var response = await service.HAdminSingInAsync(request);
 
+        return response.IsSuccess ?
+            Ok(response.Value) :
+            response.ToProblem();
+    }
+    [HttpPost("city-admin-login")]
+    public async Task<IActionResult> Login3([FromBody] AuthRequest request)
+    {
+        var response = await service.CAdminSingInAsync(request);
+
+        return response.IsSuccess ?
+            Ok(response.Value) :
+            response.ToProblem();
+    }
+    [HttpPost("super-admin-login")]
+    public async Task<IActionResult> Login4([FromBody] AuthRequest request)
+    {
+        var response = await service.SAdminSingInAsync(request);
+
+        return response.IsSuccess ?
+            Ok(response.Value) :
+            response.ToProblem();
+    }
+    
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
         var response = await service.UserRegisterAsync(request);
 
         return response.IsSuccess ?
-            Ok() :
+            Ok(new Re("done")) :
             response.ToProblem();
     }
 
@@ -45,7 +72,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ConfirmEmailAsync(request);
 
         return response.IsSuccess ?
-            Ok() :
+            Ok(new Re("done")) :
             response.ToProblem();
     }
 
@@ -56,7 +83,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ResendEmailAsync(request);
 
         return response.IsSuccess ?
-            Ok() :
+            Ok(new Re("done")) :
             response.ToProblem();
     }
 
@@ -80,7 +107,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.RevokeRefreshTokenAsync(request.Token, request.RefreshToken);
 
         return response.IsSuccess ?
-            Ok() :
+            Ok(new Re("done")) :
             response.ToProblem();
     }
 
@@ -90,7 +117,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ForgetPassordAsync(request);
 
         return response.IsSuccess ?
-                Ok() :
+                Ok(new Re("done")) :
                 response.ToProblem();
     }
 
@@ -100,7 +127,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ResetPasswordAsync(request);
 
         return response.IsSuccess ?
-                Ok() :
+                Ok(new Re("done")) :
                 response.ToProblem();
     }
 }
