@@ -14,7 +14,7 @@ namespace Hajzzy.Controllers;
 public class AuthController(IAuthService service) : ControllerBase
 {
     [HttpPost("login")]
-    public async Task<IActionResult> login([FromBody] AuthRequest request)
+    public async Task<IActionResult> Login([FromBody] AuthRequest request)
     {
         var response = await service.SingInAsync(request);
 

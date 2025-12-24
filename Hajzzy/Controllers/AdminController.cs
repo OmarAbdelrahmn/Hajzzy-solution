@@ -53,7 +53,7 @@ public class AdminController(IAdminService service,IUserService service1) : Cont
 
 
     [HttpPut("users/name/{UserId}")]
-    public async Task<IActionResult> update(string UserId , UpdateUserRequest request)
+    public async Task<IActionResult> Update(string UserId , UpdateUserRequest request)
     {
         var user = await service.UpdateUserAsync(UserId,request);
 
