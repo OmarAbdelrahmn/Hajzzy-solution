@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Hangfire;
+using Application.Helpers;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Application;
 public static class InfraDependencies
@@ -29,6 +32,7 @@ public static class InfraDependencies
         Services.AddScoped<IJwtProvider, JwtProvider>();
         Services.AddScoped<IUserService, UserServices>();
         Services.AddScoped<IAuthService, AuthService>();
+        Services.AddScoped<IEmailSender, EmailService>();
 
         Services.AddProblemDetails();
 
@@ -39,7 +43,7 @@ public static class InfraDependencies
                 .AddFluentValidation()
                 .AddDatabase(configuration)
                 .AddCORS()
-                //.AddHangfire(configuration)
+                .AddHangfire(configuration)
                 .AddFluentswagger()
                 ;
 
@@ -143,17 +147,16 @@ public static class InfraDependencies
         });
         return Services;
     }
-    //public static IServiceCollection AddHangfire(this IServiceCollection Services, IConfiguration configuration)
-    //{
-    //    Services.AddHangfire(config => config
-    //    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
-    //    .UseSimpleAssemblyNameTypeSerializer()
-    //    .UseRecommendedSerializerSettings()
-    //    .UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));
+    public static IServiceCollection AddHangfire(this IServiceCollection Services, IConfiguration configuration)
+    {
+        Services.AddHangfire(config => config
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings()
+        .UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));
 
-    //    // Add the processing server as IHostedService
-    //    Services.AddHangfireServer();
-    //    return Services;
-    //}
+        Services.AddHangfireServer();
+        return Services;
+    }
 
 }

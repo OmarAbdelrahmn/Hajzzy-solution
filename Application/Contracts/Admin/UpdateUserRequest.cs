@@ -5,5 +5,6 @@ public record UpdateUserRequest
     string Email,
     string UserFullName,
     string UserAddress,
-    string Role
+    string Role,
+    string? Password
     );

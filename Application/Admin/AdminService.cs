@@ -153,7 +153,16 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
 
         user.UserName = request.Email;
         user.NormalizedUserName = request.Email.ToUpper();
+        if(request.Password != null)
+        {
+            await manager.RemovePasswordAsync(user);
+            var newpass = await manager.AddPasswordAsync(user, request.Password);
 
+            if (!newpass.Succeeded)
+            {
+                return Result.Failure(new Error("password failed", "password failed to updaude", 404));
+            }
+        }
         var result = await manager.UpdateAsync(user);
 
         if (result.Succeeded)
@@ -173,7 +182,4 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
 
     }
 
-
-
-  
 }
