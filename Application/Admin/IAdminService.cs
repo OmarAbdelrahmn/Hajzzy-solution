@@ -6,7 +6,7 @@ namespace Application.Admin;
 
 public interface IAdminService
 {
-    Task<IEnumerable<UserResponse>> GetAllUsers();
+    Task<Result<IEnumerable<UserResponse>>> GetAllUsers();
     Task<Result<UserResponse>> GetUserAsync(string Id);
     Task<Result<UserResponse>> GetUser2Async(string UserName);
     Task<Result<UserResponse>> AddUserAsync(CreateUserRequest request);

@@ -60,8 +60,9 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
         return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
     }
 
-    public async Task<IEnumerable<UserResponse>> GetAllUsers() =>
-        await (from u in dbcontext.Users
+    public async Task<Result<IEnumerable<UserResponse>>> GetAllUsers()
+    {
+        var users = await (from u in dbcontext.Users
                join ur in dbcontext.UserRoles
                on u.Id equals ur.UserId
                join r in dbcontext.Roles
@@ -86,11 +87,25 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
                       ))
                   .ToListAsync();
 
-    public Task<Result<UserResponse>> GetUser2Async(string UserName)
-    {
-        throw new NotImplementedException();
+        if(users.Count() == 0)
+            return Result.Failure<IEnumerable<UserResponse>>(UserErrors.UserNotFound);
+
+            return Result.Success<IEnumerable<UserResponse>>(users);
+        
     }
 
+    public async Task<Result<UserResponse>> GetUser2Async(string UserName)
+    {
+        if (await manager.FindByNameAsync(UserName) is not { } user)
+            return Result.Failure<UserResponse>(UserErrors.UserNotFound);
+
+        var userroles = await manager.GetRolesAsync(user);
+
+        var response = (user, userroles).Adapt<UserResponse>();
+
+        return Result.Success(response);
+    }
+    
     public async Task<Result<UserResponse>> GetUserAsync(string Id)
     {
         if (await manager.FindByIdAsync(Id) is not { } user)
@@ -158,18 +173,7 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
 
     }
 
-    Task<IEnumerable<UserResponse>> IAdminService.GetAllUsers()
-    {
-        throw new NotImplementedException();
-    }
 
-    Task<Result<UserResponse>> IAdminService.GetUser2Async(string UserName)
-    {
-        throw new NotImplementedException();
-    }
 
-    Task<Result<UserResponse>> IAdminService.GetUserAsync(string Id)
-    {
-        throw new NotImplementedException();
-    }
+  
 }
