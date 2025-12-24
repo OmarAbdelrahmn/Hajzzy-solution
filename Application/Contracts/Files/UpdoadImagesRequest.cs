@@ -1,6 +1,6 @@
-﻿namespace Medical_E_Commerce.Contracts.Files;
+﻿//namespace Medical_E_Commerce.Contracts.Files;
 
-public record UpdoadImagessRequest
-(
-    IFormFile Image
-    );
+//public record UpdoadImagessRequest
+//(
+//    IFormFile Image
+//    );

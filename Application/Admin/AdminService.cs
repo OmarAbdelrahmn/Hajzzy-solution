@@ -1,7 +1,6 @@
 ﻿using Application.Abstraction;
 using Application.Abstraction.Errors;
-using Application.Admin;
-using Application.Contracts.Users;
+using Application.Contracts.Admin;
 using Application.Roles;
 using Domain;
 using Domain.Entities;
@@ -10,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Medical_E_Commerce.Service.Admin;
+namespace Application.Admin;
 
 public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcontext dbcontext, IRoleService roleService) : IAdminService
 {
@@ -21,11 +20,11 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
         var EmailIsexist = await manager.Users.AnyAsync(c => c.Email == request.Email);
 
         if (EmailIsexist)
-            return Result.Failure<UserResponse>(UserErrors.EmailIsExcists);
+            return Result.Failure<UserResponse>(UserErrors.EmailAlreadyExist);
 
         var allowedroles = await roleService.GetRolesAsync();
 
-        if (request.Roles.Except(allowedroles.Value.Select(c => c.Name)).Any())
+        if (!allowedroles.Value.Any(r => r.Name == request.Role))
             return Result.Failure<UserResponse>(RolesErrors.InvalidRoles);
 
         var user = request.Adapt<ApplicationUser>();
@@ -36,9 +35,9 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
 
         if (result.Succeeded)
         {
-            await manager.AddToRolesAsync(user, request.Roles);
+            await manager.AddToRoleAsync(user, request.Role);
 
-            var response = (user, request.Roles).Adapt<UserResponse>();
+            var response = (user, request.Role).Adapt<UserResponse>();
 
             return Result.Success(response);
         }
@@ -70,24 +69,24 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
                select new
                {
                    u.Id,
-                   u.UserFullName,
-                   u.UserAddress,
+                   u.FullName,
+                   u.Address,
                    u.Email,
                    u.IsDisable,
-                   roles = roles.Select(r => r.Name!).ToList()
+                   role = roles.Select(r => r.Name!).FirstOrDefault()
                })
-                  .GroupBy(x => new { x.Id, x.UserFullName, x.UserAddress, x.Email, x.IsDisable })
+                  .GroupBy(x => new { x.Id, x.FullName, x.Address, x.Email, x.IsDisable })
                   .Select(c => new UserResponse(
                       c.Key.Id,
-                      c.Key.UserFullName,
-                      c.Key.UserAddress,
+                      c.Key.FullName,
+                      c.Key.Address,
                       c.Key.Email,
                       c.Key.IsDisable,
-                      c.SelectMany(x => x.roles)
+                      c.Select(x => x.role).FirstOrDefault()!
                       ))
                   .ToListAsync();
 
-    public Task<Result<UserResponses>> GetUser2Async(string UserName)
+    public Task<Result<UserResponse>> GetUser2Async(string UserName)
     {
         throw new NotImplementedException();
     }
@@ -128,11 +127,11 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
         var duplicatedEmail = await manager.Users.AnyAsync(c => c.Email == request.Email && c.Id != UserId);
 
         if (duplicatedEmail)
-            return Result.Failure(UserErrors.EmailIsExcists);
+            return Result.Failure(UserErrors.EmailAlreadyExist);
 
         var allowedroles = await roleService.GetRolesAsync();
 
-        if (request.Roles.Except(allowedroles.Value.Select(c => c.Name)).Any())
+        if (!allowedroles.Value.Any(r => r.Name == request.Role))
             return Result.Failure(RolesErrors.InvalidRoles);
 
         user = request.Adapt(user);
@@ -149,7 +148,7 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
                 .Where(c => c.UserId == UserId)
                 .ExecuteDeleteAsync();
 
-            await manager.AddToRolesAsync(user, request.Roles);
+            await manager.AddToRoleAsync(user, request.Role);
 
             return Result.Success();
         }
@@ -159,12 +158,17 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
 
     }
 
-    Task<IEnumerable<UserResponses>> IAdminService.GetAllUsers()
+    Task<IEnumerable<UserResponse>> IAdminService.GetAllUsers()
     {
         throw new NotImplementedException();
     }
 
-    Task<Result<UserResponses>> IAdminService.GetUserAsync(string Id)
+    Task<Result<UserResponse>> IAdminService.GetUser2Async(string UserName)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<Result<UserResponse>> IAdminService.GetUserAsync(string Id)
     {
         throw new NotImplementedException();
     }

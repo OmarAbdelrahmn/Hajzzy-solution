@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Abstraction.Consts;
+using FluentValidation;
 
 namespace Application.Contracts.User;
 
@@ -12,7 +13,7 @@ public class ChangePasswordValidator : AbstractValidator<ChangePasswordRequest>
 
         RuleFor(i => i.NewPassord)
             .NotEmpty()
-            .Matches(RegexPattern.Password)
+            .Matches(RegexPatterns.Password)
             .WithMessage("Password should be 8 digits and should contains Lowercase,Uppercase,Number and Special character ")
             .NotEqual(c => c.CurrentPassword)
             .WithMessage("New password can't be same as current one");

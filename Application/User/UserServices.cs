@@ -1,7 +1,6 @@
 ﻿using Application.Abstraction;
 using Application.Abstraction.Errors;
 using Application.Contracts.User;
-using Application.Contracts.Users;
 using Domain.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Http;
@@ -28,9 +27,9 @@ public class UserServices(UserManager<ApplicationUser> manager) : IUserService
         return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
     }
 
-    public async Task<Result> ChangeRoleForUser(string UserName, string NewRole)
+    public async Task<Result> ChangeRoleForUser(string Email, string NewRole)
     {
-        var User = await manager.FindByNameAsync(UserName);
+        var User = await manager.FindByEmailAsync(Email);
 
         if (User == null)
             return Result.Failure(UserErrors.UserNotFound);
@@ -75,8 +74,8 @@ public class UserServices(UserManager<ApplicationUser> manager) : IUserService
         await manager.Users
             .Where(i => i.Id == id)
             .ExecuteUpdateAsync(set =>
-            set.SetProperty(x => x.FullName, request.FullName)
-               .SetProperty(x => x.Address, request.Address));
+            set.SetProperty(x => x.FullName, request.UserFullName)
+               .SetProperty(x => x.Address, request.UserAddress));
 
         return Result.Success();
     }

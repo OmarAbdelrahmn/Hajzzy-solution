@@ -1,4 +1,4 @@
-﻿namespace Medical_E_Commerce.Contracts.Admin;
+﻿namespace Application.Contracts.Admin;
 
 public record CreateUserRequest
 (
@@ -6,5 +6,5 @@ public record CreateUserRequest
     string Password,
     string UserFullName,
     string UserAddress,
-    string Roles
+    string Role
     );

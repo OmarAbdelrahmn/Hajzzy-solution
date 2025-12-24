@@ -1,13 +1,14 @@
 ﻿using Application.Abstraction;
+using Application.Contracts.Admin;
 
 
 namespace Application.Admin;
 
 public interface IAdminService
 {
-    Task<IEnumerable<UserResponses>> GetAllUsers();
-    Task<Result<UserResponses>> GetUserAsync(string Id);
-    Task<Result<UserResponses>> GetUser2Async(string UserName);
+    Task<IEnumerable<UserResponse>> GetAllUsers();
+    Task<Result<UserResponse>> GetUserAsync(string Id);
+    Task<Result<UserResponse>> GetUser2Async(string UserName);
     Task<Result<UserResponse>> AddUserAsync(CreateUserRequest request);
     Task<Result> UpdateUserAsync(string UserId, UpdateUserRequest request);
     Task<Result> ToggleStatusAsync(string UserId);

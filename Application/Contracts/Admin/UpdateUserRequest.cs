@@ -5,5 +5,5 @@ public record UpdateUserRequest
     string Email,
     string UserFullName,
     string UserAddress,
-    string Roles
+    string Role
     );

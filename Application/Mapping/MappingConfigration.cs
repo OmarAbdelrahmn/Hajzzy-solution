@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Auth;
-using Application.Contracts.Users;
 using Domain.Entities;
 using Mapster;
 
@@ -10,14 +9,14 @@ namespace Application.Mapping;
 //    public void Register(TypeAdapterConfig config)
 //    {
 
-//        //config.NewConfig<RegisterRequest, ApplicataionUser>()
+//        //config.NewConfig<RegisterRequest, ApplicationUser>()
 //        //    .Map(des => des.UserName, src => $"{src.FirstName}{src.LastName}");
 
 
 //        config.NewConfig<RegisterRequest, ApplicationUser>()
 //            .Map(des => des.UserName, src => src.Email);
 
-//        config.NewConfig<(ApplicataionUser user, string userrole), UserResponse>()
+//        config.NewConfig<(ApplicationUser user, string userrole), UserResponse>()
 //            .Map(des => des, src => src.user
 //            .Map(des => des.Roles, src => src.userroles);
 

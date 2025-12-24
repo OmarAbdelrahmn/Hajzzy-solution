@@ -4,6 +4,7 @@ using Application.Contracts.Roles;
 using Application.Roles;
 using Domain;
 using Domain.Entities;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,32 +16,7 @@ public class RoleService(RoleManager<ApplicationRole> roleManager, ApplicationDb
     private readonly RoleManager<ApplicationRole> roleManager = roleManager;
     private readonly ApplicationDbcontext dbcontext = dbcontext;
 
-    public async Task<Result> addroleAsync(RoleRequest request)
-    {
-        var roleisexists = await roleManager.RoleExistsAsync(request.Name);
-
-        if (roleisexists)
-            return Result.Failure(RolesErrors.RoleIsExcists);
-
-
-        var role = new ApplicationRole
-        {
-            Name = request.Name,
-            ConcurrencyStamp = Guid.NewGuid().ToString(),
-
-        };
-
-        var result = await roleManager.CreateAsync(role);
-
-        if (result.Succeeded)
-            return Result.Success();
-
-
-        var error = result.Errors.First();
-        return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
-
-    }
-
+   
     public async Task<Result<IEnumerable<RolesResponse>>> GetRolesAsync(bool? IncludeDisable = false)
     {
         var roles = await roleManager.Roles
