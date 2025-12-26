@@ -133,53 +133,80 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
         return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
     }
 
-    public async Task<Result> UpdateUserAsync(string UserId, UpdateUserRequest request)
+    public async Task<Result> UpdateUserAsync(string userId, UpdateUserRequest request)
     {
-
-        if (await manager.FindByIdAsync(UserId) is not { } user)
-            return Result.Failure(UserErrors.UserNotFound);
-
-        var duplicatedEmail = await manager.Users.AnyAsync(c => c.Email == request.Email && c.Id != UserId);
-
-        if (duplicatedEmail)
-            return Result.Failure(UserErrors.EmailAlreadyExist);
-
-        var allowedroles = await roleService.GetRolesAsync();
-
-        if (!allowedroles.Value.Any(r => r.Name == request.Role))
-            return Result.Failure(RolesErrors.InvalidRoles);
-
-        user = request.Adapt(user);
-
-        user.UserName = request.Email;
-        user.NormalizedUserName = request.Email.ToUpper();
-        if(request.Password != null)
+        using var transaction = await dbcontext.Database.BeginTransactionAsync();
+        try
         {
-            await manager.RemovePasswordAsync(user);
-            var newpass = await manager.AddPasswordAsync(user, request.Password);
+            // Find user
+            if (await manager.FindByIdAsync(userId) is not { } user)
+                return Result.Failure(UserErrors.UserNotFound);
 
-            if (!newpass.Succeeded)
+            // Check duplicate email only if email changed
+            if (user.Email != request.Email)
             {
-                return Result.Failure(new Error("password failed", "password failed to updaude", 404));
+                var duplicatedEmail = await manager.Users
+                    .AnyAsync(c => c.Email == request.Email && c.Id != userId);
+                if (duplicatedEmail)
+                    return Result.Failure(UserErrors.EmailAlreadyExist);
             }
-        }
-        var result = await manager.UpdateAsync(user);
 
-        if (result.Succeeded)
-        {
+            // Validate role
+            var allowedRoles = await roleService.GetRolesAsync();
+            if (!allowedRoles.Value.Any(r => r.Name == request.Role))
+                return Result.Failure(RolesErrors.InvalidRoles);
 
-            await dbcontext.UserRoles
-                .Where(c => c.UserId == UserId)
-                .ExecuteDeleteAsync();
+            // Update user properties explicitly
+            user.Email = request.Email;
+            user.NormalizedEmail = request.Email.ToUpperInvariant();
+            user.UserName = request.Email;
+            user.NormalizedUserName = request.Email.ToUpperInvariant();
+            user.FullName = request.UserFullName;
+            user.Address = request.UserAddress;
 
-            await manager.AddToRoleAsync(user, request.Role);
+            // Update user first
+            var updateResult = await manager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+            {
+                var error = updateResult.Errors.First();
+                return Result.Failure(new Error(error.Code, error.Description,
+                    StatusCodes.Status400BadRequest));
+            }
 
+            // Update password if provided
+            if (!string.IsNullOrEmpty(request.Password))
+            {
+                await manager.RemovePasswordAsync(user);
+                var passwordResult = await manager.AddPasswordAsync(user, request.Password);
+                if (!passwordResult.Succeeded)
+                {
+                    await transaction.RollbackAsync();
+                    return Result.Failure(new Error("PasswordUpdateFailed",
+                        passwordResult.Errors.First().Description,
+                        StatusCodes.Status400BadRequest));
+                }
+            }
+
+            // Update roles
+            var currentRoles = await manager.GetRolesAsync(user);
+            await manager.RemoveFromRolesAsync(user, currentRoles);
+            var roleResult = await manager.AddToRoleAsync(user, request.Role);
+            if (!roleResult.Succeeded)
+            {
+                await transaction.RollbackAsync();
+                return Result.Failure(new Error("RoleUpdateFailed",
+                    roleResult.Errors.First().Description,
+                    StatusCodes.Status400BadRequest));
+            }
+
+            await transaction.CommitAsync();
             return Result.Success();
         }
-
-        var error = result.Errors.First();
-        return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
-
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
     }
 
 }

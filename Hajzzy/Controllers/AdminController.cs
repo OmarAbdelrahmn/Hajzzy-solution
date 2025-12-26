@@ -52,7 +52,7 @@ public class AdminController(IAdminService service,IUserService service1) : Cont
     }
 
 
-    [HttpPut("users/name/{UserId}")]
+    [HttpPut("users/{UserId}")]
     public async Task<IActionResult> Update(string UserId , UpdateUserRequest request)
     {
         var user = await service.UpdateUserAsync(UserId,request);
@@ -62,7 +62,7 @@ public class AdminController(IAdminService service,IUserService service1) : Cont
             user.ToProblem();
     }
 
-    [HttpPost("users/name")]
+    [HttpPost("users")]
     public async Task<IActionResult> AddingUser(CreateUserRequest request)
     {
         var user = await service.AddUserAsync(request);
