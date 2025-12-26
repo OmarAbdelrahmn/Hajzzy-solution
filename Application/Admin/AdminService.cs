@@ -31,6 +31,9 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
         user.UserName = request.Email;
         user.EmailConfirmed = true;
 
+        user.Address = request.UserAddress;
+        user.FullName = request.UserFullName;   
+
         var result = await manager.CreateAsync(user, request.Password);
 
         if (result.Succeeded)
@@ -44,6 +47,22 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
 
         var error = result.Errors.First();
         return Result.Failure<UserResponse>(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
+    }
+
+    public async Task<Result> DeletaUserAsync(string UserId)
+    {
+        if (await manager.FindByIdAsync(UserId) is not { } user)
+            return Result.Failure(UserErrors.UserNotFound);
+
+        var result = await manager.DeleteAsync(user);
+
+        if (result.Succeeded)
+            return Result.Success();
+
+        var error = result.Errors.First();
+
+        return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
+
     }
 
     public async Task<Result> EndLockOutAsync(string UserId)

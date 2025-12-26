@@ -62,6 +62,16 @@ public class AdminController(IAdminService service,IUserService service1) : Cont
             user.ToProblem();
     }
 
+    [HttpDelete("users/{UserId}")]
+    public async Task<IActionResult> DeleteAsync(string UserId)
+    {
+        var user = await service.DeletaUserAsync(UserId);
+
+        return user.IsSuccess ?
+            Ok(new Re("done")) :
+            user.ToProblem();
+    }
+
     [HttpPost("users")]
     public async Task<IActionResult> AddingUser(CreateUserRequest request)
     {
