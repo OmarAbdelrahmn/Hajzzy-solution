@@ -31,11 +31,15 @@ RecurringJob.AddOrUpdate<INotinficationService>("try monthly news", x => x.SendP
 RecurringJob.AddOrUpdate("try weekly news", () => notificationService.SendPharmacyNotification(), Cron.Weekly);
 
 
+app.UseCors();
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseRouting();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

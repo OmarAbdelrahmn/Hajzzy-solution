@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hajzzy.Controllers;
 
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class AuthController(IAuthService service) : ControllerBase
 {

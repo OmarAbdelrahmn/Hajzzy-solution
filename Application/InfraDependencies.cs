@@ -19,6 +19,9 @@ using Hangfire;
 using Application.Helpers;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Application.Notifications;
+using Application.Roles;
+using Medical_E_Commerce.Service.Roles;
+using Application.Admin;
 
 namespace Application;
 public static class InfraDependencies
@@ -35,6 +38,8 @@ public static class InfraDependencies
         Services.AddScoped<IAuthService, AuthService>();
         Services.AddScoped<IEmailSender, EmailService>();
         Services.AddScoped<INotinficationService, NotinficationService>();
+        Services.AddScoped<IRoleService, RoleService>();
+        Services.AddScoped<IAdminService, AdminService>();
 
         Services.AddProblemDetails();
 
