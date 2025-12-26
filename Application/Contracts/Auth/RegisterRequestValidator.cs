@@ -19,16 +19,12 @@ public class RegisterrequestValidator : AbstractValidator<Registerrequest>
             .Matches(RegexPatterns.Password)
             .WithMessage("Password should be 8 digits and should contains Lowercase,Uppercase,Number and Special character ");
 
-        RuleFor(x => x.UserFullName)
+        RuleFor(x => x.FullName)
             .NotEmpty()
-            .WithMessage("LastName is required")
+            .WithMessage("full name  is required")
             .Length(3, 100);
 
 
-        RuleFor(x => x.UserAdress)
-            .NotEmpty()
-            .WithMessage("LastName is required")
-            .Length(3, 100);
     }
 
 }

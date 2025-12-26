@@ -61,7 +61,6 @@ public class UserServices(UserManager<ApplicationUser> manager) : IUserService
             .Where(i => i.Id == id)
             .ProjectToType<UserProfileResponse>()
             .SingleAsync();
-        ;
 
         return Result.Success(user);
     }

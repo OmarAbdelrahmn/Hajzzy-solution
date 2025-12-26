@@ -195,8 +195,7 @@ public class AuthService(
 
         var user = request.Adapt<ApplicationUser>();
         user.UserName = request.Email;
-        user.FullName = request.UserFullName;
-        user.Address = request.UserAdress;
+        user.FullName = request.FullName;
         var result = await manager.CreateAsync(user, request.Password);
 
         if (result.Succeeded)
