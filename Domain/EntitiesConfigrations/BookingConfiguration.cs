@@ -12,6 +12,15 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
 {
     public void Configure(EntityTypeBuilder<Booking> builder)
     {
+
+        builder.HasIndex(b => new { b.UserId, b.Status, b.CheckInDate })
+            .IncludeProperties(b => new { b.TotalPrice, b.PaymentStatus })
+            .HasFilter("[IsDeleted] = 0");
+
+        builder.HasIndex(b => new { b.UnitId, b.CheckInDate, b.CheckOutDate })
+            .HasFilter("[IsDeleted] = 0");
+
+
         builder.HasKey(b => b.Id);
 
         builder.Property(b => b.BookingNumber)
@@ -50,5 +59,10 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
             .WithMany()
             .HasForeignKey(b => b.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(b => b.CheckInDate);
+        builder.HasIndex(b => b.CheckOutDate);
+        builder.HasIndex(b => b.CreatedAt);
+
     }
 }

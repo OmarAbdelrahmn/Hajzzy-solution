@@ -34,6 +34,18 @@ public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
         builder.HasIndex(n => n.CreatedByUserId);
         builder.HasIndex(n => n.CreatedAt);
 
+        builder.HasIndex(n => new { n.IsScheduled, n.ScheduledFor, n.IsSent })
+           .HasFilter("[IsDeleted] = 0 AND [IsSent] = 0");
+
+        // ADD: Index for retry processing
+        builder.HasIndex(n => new { n.IsSent, n.RetryCount, n.LastRetryAt })
+            .HasFilter("[IsDeleted] = 0 AND [IsSent] = 0 AND [RetryCount] < [MaxRetries]");
+
+        // ADD: Index for expiration cleanup
+        builder.HasIndex(n => n.ExpiresAt)
+            .HasFilter("[IsDeleted] = 0");
+
+
         builder.HasOne(n => n.CreatedBy)
             .WithMany()
             .HasForeignKey(n => n.CreatedByUserId)

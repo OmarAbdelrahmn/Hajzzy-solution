@@ -63,3 +63,36 @@ public enum NotificationTarget
     Unit = 4,
     Role = 5
 }
+
+public enum CouponType
+{
+    FixedAmount = 0,
+    Percentage = 1,
+    FreeNight = 2
+}
+
+public enum PricingRuleType
+{
+    EarlyBird = 0,      // Book X days in advance
+    LastMinute = 1,     // Book within X days
+    LongStay = 2,       // Booking X+ nights
+    Weekend = 3,        // Fri-Sun pricing
+    Seasonal = 4,       // Summer, winter, etc.
+    Occupancy = 5       // Based on current occupancy
+}
+
+public enum PricingAdjustmentType
+{
+    PercentageIncrease = 0,
+    PercentageDecrease = 1,
+    FixedIncrease = 2,
+    FixedDecrease = 3
+}
+
+public enum LoyaltyTier
+{
+    Bronze = 0,
+    Silver = 1,
+    Gold = 2,
+    Platinum = 3
+}

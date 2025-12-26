@@ -16,7 +16,6 @@ public class Notification
     public string Message { get; set; } = string.Empty;
 
     public NotificationType Type { get; set; }
-
     public NotificationPriority Priority { get; set; } = NotificationPriority.Normal;
 
     // Who created this notification
@@ -36,6 +35,20 @@ public class Notification
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    public int TotalRecipients { get; set; }
+    public int DeliveredCount { get; set; }
+    public int FailedCount { get; set; }
+    public int ReadCount { get; set; }
+
+    public int RetryCount { get; set; }
+    public int MaxRetries { get; set; } = 5;
+    public DateTime? LastRetryAt { get; set; }
+
+    public DateTime? ExpiresAt { get; set; }
+    public bool IsExpired => ExpiresAt.HasValue && DateTime.UtcNow > ExpiresAt;
+
+    public bool IsDeleted { get; set; } = false;
+    public DateTime? DeletedAt { get; set; }
     // Navigation
     public ApplicationUser? CreatedBy { get; set; }
     public City? TargetCity { get; set; }

@@ -14,6 +14,9 @@ public class UnitConfiguration : IEntityTypeConfiguration<Unit>
     {
         builder.HasKey(u => u.Id);
 
+        builder.HasIndex(u => new { u.CityId, u.IsActive, u.IsVerified })
+            .HasFilter("[IsDeleted] = 0");
+
         builder.Property(u => u.Name)
             .IsRequired()
             .HasMaxLength(200);
@@ -43,6 +46,15 @@ public class UnitConfiguration : IEntityTypeConfiguration<Unit>
         builder.HasIndex(u => u.IsActive);
         builder.HasIndex(u => u.IsVerified);
         builder.HasIndex(u => u.AverageRating);
+
+        builder.HasIndex(u => new { u.Latitude, u.Longitude });
+
+        builder.HasIndex(u => u.OwnerId);
+
+        builder.HasOne(u => u.Owner)
+            .WithMany()
+            .HasForeignKey(u => u.OwnerId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(u => u.City)
             .WithMany(c => c.Units)

@@ -3,6 +3,6 @@
 public record UserProfileResponse
 (
     string Email,
-    string UserFullName,
+    string FullName,
     string UserAddress
     );

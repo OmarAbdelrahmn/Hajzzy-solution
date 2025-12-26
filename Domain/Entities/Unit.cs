@@ -7,50 +7,51 @@ namespace Domain.Entities;
 
 public class Unit
 {
- public int Id { get; set; }
+     public int Id { get; set; }
 
-[Required, MaxLength(200)]
-public string Name { get; set; } = string.Empty;
+    [Required, MaxLength(200)]
+    public string Name { get; set; } = string.Empty;
 
-[Required]
-public string Description { get; set; } = string.Empty;
+    [Required]
+    public string Description { get; set; } = string.Empty;
 
-[Required, MaxLength(500)]
-public string Address { get; set; } = string.Empty;
+    [Required, MaxLength(500)]
+    public string Address { get; set; } = string.Empty;
 
-public decimal Latitude { get; set; }
-public decimal Longitude { get; set; }
+    public decimal Latitude { get; set; }
+    public decimal Longitude { get; set; }
 
-public int CityId { get; set; }
-public int UnitTypeId { get; set; }
+    public int CityId { get; set; }
+    public int UnitTypeId { get; set; }
 
-[Required]
-public string OwnerId { get; set; } = string.Empty; // Unit Admin
+    [Required]
+    public string OwnerId { get; set; } = string.Empty; // Unit Admin
 
-public decimal BasePrice { get; set; }
+    public decimal BasePrice { get; set; }
 
-public int MaxGuests { get; set; }
-public int Bedrooms { get; set; }
-public int Bathrooms { get; set; }
+    public int MaxGuests { get; set; }
+    public int Bedrooms { get; set; }
+    public int Bathrooms { get; set; }
 
-public bool IsActive { get; set; } = true;
-public bool IsVerified { get; set; } = false;
+    public bool IsActive { get; set; } = true;
+    public bool IsVerified { get; set; } = false;
 
-public decimal AverageRating { get; set; }
-public int TotalReviews { get; set; }
+    public decimal AverageRating { get; set; }
+    public int TotalReviews { get; set; }
 
-public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-public DateTime? UpdatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
 
-// Navigation
-public City City { get; set; } = default!;
-public UnitType UnitType { get; set; } = default!;
-public ApplicationUser Owner { get; set; } = default!;
-
-public ICollection<UnitImage> Images { get; set; } = [];
-public ICollection<UnitAmenity> UnitAmenities { get; set; } = [];
-public ICollection<Room> Rooms { get; set; } = [];
-public ICollection<Booking> Bookings { get; set; } = [];
-public ICollection<Review> Reviews { get; set; } = [];
-public ICollection<UnitAvailability> Availabilities { get; set; } = [];
-}
+    // Navigation
+    public City City { get; set; } = default!;
+    public UnitType UnitType { get; set; } = default!;
+    public ApplicationUser Owner { get; set; } = default!;
+    public int? CancellationPolicyId { get; set; }
+    public CancellationPolicy? CancellationPolicy { get; set; }
+    public ICollection<UnitImage> Images { get; set; } = [];
+    public ICollection<UnitAmenity> UnitAmenities { get; set; } = [];
+    public ICollection<Room> Rooms { get; set; } = [];
+    public ICollection<Booking> Bookings { get; set; } = [];
+    public ICollection<Review> Reviews { get; set; } = [];
+    public ICollection<UnitAvailability> Availabilities { get; set; } = [];
+ }
