@@ -51,7 +51,7 @@ public class AuthController(IAuthService service) : ControllerBase
     }
     
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] Registerrequest request)
     {
         var response = await service.UserRegisterAsync(request);
 
@@ -60,15 +60,9 @@ public class AuthController(IAuthService service) : ControllerBase
             response.ToProblem();
     }
 
-    [HttpGet("emailconfigration")]
-    public async Task<IActionResult> ConfirmEmailAsync([FromQuery] string userid, string code)
+    [HttpPost("email-confirmation")]
+    public async Task<IActionResult> ConfirmEmailAsync([FromBody] ConfirmEmailRequest request )
     {
-        var request = new ConfirmEmailRequest
-        (
-           userid,
-           code
-        );
-
         var response = await service.ConfirmEmailAsync(request);
 
         return response.IsSuccess ?

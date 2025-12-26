@@ -35,15 +35,15 @@ public class CityAdminConfiguration : IEntityTypeConfiguration<CityAdmin>
             .OnDelete(DeleteBehavior.Cascade);
 
         // Seed: Assign CityAdmin to Jeddah
-        builder.HasData(
-            new CityAdmin
-            {
-                Id = 1,
-                UserId = DefaultUsers.CityAdminId,
-                CityId = DefaultCities.JeddahId,
-                IsActive = true,
-                AssignedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-            }
-        );
+        //builder.HasData(
+        //    new CityAdmin
+        //    {
+        //        Id = 1,
+        //        UserId = DefaultUsers.CityAdminId,
+        //        CityId = DefaultCities.JeddahId,
+        //        IsActive = true,
+        //        AssignedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+        //    }
+        //);
     }
 }

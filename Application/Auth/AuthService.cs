@@ -186,7 +186,7 @@ public class AuthService(
         return Result.Success();
     }
 
-    public async Task<Result> UserRegisterAsync(RegisterRequest request)
+    public async Task<Result> UserRegisterAsync(Registerrequest request)
     {
         var emailisex = await manager.Users.AnyAsync(i => i.Email == request.Email);
 
@@ -195,7 +195,8 @@ public class AuthService(
 
         var user = request.Adapt<ApplicationUser>();
         user.UserName = request.Email;
-
+        user.FullName = request.UserFullName;
+        user.Address = request.UserAdress;
         var result = await manager.CreateAsync(user, request.Password);
 
         if (result.Succeeded)

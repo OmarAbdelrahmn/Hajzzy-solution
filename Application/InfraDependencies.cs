@@ -135,7 +135,7 @@ public static class InfraDependencies
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.AllowedForNewUsers = true;
             options.Password.RequiredLength = 8;
-            options.SignIn.RequireConfirmedEmail = false;
+            options.SignIn.RequireConfirmedEmail = true;
             options.SignIn.RequireConfirmedPhoneNumber = false;
             options.User.RequireUniqueEmail = true;
             options.Password.RequireDigit = true;
