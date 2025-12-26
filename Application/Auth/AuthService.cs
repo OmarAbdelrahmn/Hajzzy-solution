@@ -297,7 +297,7 @@ public class AuthService(
 
             });
 
-        BackgroundJob.Enqueue(() => emailSender.SendEmailAsync(user.Email!, "TechSpire : change password", emailbody));
+        BackgroundJob.Enqueue(() => emailSender.SendEmailAsync(user.Email!, "Hujjzy : change password", emailbody));
         await Task.CompletedTask;
     }
 
