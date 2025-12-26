@@ -22,6 +22,7 @@ using Application.Notifications;
 using Application.Roles;
 using Medical_E_Commerce.Service.Roles;
 using Application.Admin;
+using Application.Setting;
 
 namespace Application;
 public static class InfraDependencies
@@ -102,7 +103,7 @@ public static class InfraDependencies
 
         Services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
 
-        Services.Configure<MailSettings>(configuration.GetSection(nameof(MailSettings)));
+        Services.Configure<MainSettings>(configuration.GetSection(nameof(MainSettings)));
 
         var Jwtsetting = configuration.GetSection("Jwt").Get<JwtOptions>();
 

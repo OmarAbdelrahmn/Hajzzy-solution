@@ -282,7 +282,7 @@ public class AuthService(
 
             });
 
-        BackgroundJob.Enqueue(() => emailSender.SendEmailAsync(user.Email!, "TechSpire : Email configration", emailbody));
+        BackgroundJob.Enqueue(() => emailSender.SendEmailAsync(user.Email!, "Hujjzy : Email configration", emailbody));
         await Task.CompletedTask;
     }
 

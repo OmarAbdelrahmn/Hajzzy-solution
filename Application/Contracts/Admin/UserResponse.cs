@@ -3,8 +3,8 @@
 public record UserResponse
 (
     string Id,
-    string FirstName,
-    string LastName,
+    string FullName,
+    string Address,
     string Email,
     bool IsDisable,
     string Role

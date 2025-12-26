@@ -13,6 +13,13 @@ public class EmailService(IOptions<MainSettings> options) : IEmailSender
 
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
+        if (string.IsNullOrWhiteSpace(options.Mail))
+            throw new InvalidOperationException("Email sender address is not configured. Please check MainSettings in appsettings.json");
+
+        if (string.IsNullOrWhiteSpace(email))
+            throw new ArgumentException("Recipient email address cannot be empty", nameof(email));
+
+
         var massage = new MimeMessage
         {
 
