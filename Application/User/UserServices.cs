@@ -1,6 +1,7 @@
 ﻿using Application.Abstraction;
 using Application.Abstraction.Errors;
 using Application.Contracts.User;
+using Azure;
 using Domain.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Http;
@@ -59,23 +60,35 @@ public class UserServices(UserManager<ApplicationUser> manager) : IUserService
     {
         var user = await manager.Users
             .Where(i => i.Id == id)
-            .ProjectToType<UserProfileResponse>()
             .SingleAsync();
 
-        return Result.Success(user);
+        if(user == null)
+            return Result.Failure<UserProfileResponse>(UserErrors.UserNotFound);
+
+        var response = new UserProfileResponse(user.Email!, user.FullName ?? " ", user.Address ?? " ", user.PhoneNumber ?? " ");
+        return Result.Success(response);
     }
 
     public async Task<Result> UpdateUserProfile(string id, UpdateUserProfileRequest request)
     {
-        //var user = await manager.FindByIdAsync(id);
-        //user = request.Adapt(user);
-        //await manager.UpdateAsync(user!);
-        await manager.Users
-            .Where(i => i.Id == id)
-            .ExecuteUpdateAsync(set =>
-            set.SetProperty(x => x.FullName, request.UserFullName)
-               .SetProperty(x => x.Address, request.UserAddress));
+        var user = await manager.FindByIdAsync(id);
 
+        if(user == null)
+            return Result.Failure(UserErrors.UserNotFound);
+
+        user.FullName = request.UserFullName;
+
+        user.PhoneNumber = request.PhoneNumber;
+
+        user.Address = request.UserAddress;
+
+        var result = await manager.UpdateAsync(user);
+
+        if(result.Succeeded)
         return Result.Success();
+
+        var error = result.Errors.First();
+
+        return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
     }
 }

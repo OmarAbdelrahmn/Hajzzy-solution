@@ -4,5 +4,6 @@ public record UserProfileResponse
 (
     string Email,
     string FullName,
-    string UserAddress
+    string UserAddress,
+    string PhoneNumber
     );

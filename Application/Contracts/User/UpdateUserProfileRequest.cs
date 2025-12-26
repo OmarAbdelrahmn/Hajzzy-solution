@@ -3,5 +3,6 @@
 public record UpdateUserProfileRequest
 (
     string UserFullName,
-    string UserAddress
+    string UserAddress,
+    string PhoneNumber
     );
