@@ -93,16 +93,20 @@ public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcon
                    u.Address,
                    u.Email,
                    u.IsDisable,
+                   u.EmailConfirmed,
+                   u.PhoneNumber,
                    role = roles.Select(r => r.Name!).FirstOrDefault()
                })
-                  .GroupBy(x => new { x.Id, x.FullName, x.Address, x.Email, x.IsDisable })
+                  .GroupBy(x => new { x.Id, x.FullName, x.Address, x.Email, x.IsDisable , x.EmailConfirmed , x.PhoneNumber})
                   .Select(c => new UserResponse(
                       c.Key.Id,
                       c.Key.FullName,
                       c.Key.Address,
                       c.Key.Email,
                       c.Key.IsDisable,
-                      c.Select(x => x.role).FirstOrDefault()!
+                      c.Select(x => x.role).FirstOrDefault()!,
+                      c.Key.EmailConfirmed,
+                      c.Key.PhoneNumber
                       ))
                   .ToListAsync();
 

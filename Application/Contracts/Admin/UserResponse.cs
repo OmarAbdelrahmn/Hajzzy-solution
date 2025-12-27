@@ -7,5 +7,7 @@ public record UserResponse
     string Address,
     string Email,
     bool IsDisable,
-    string Role
+    string Role,
+    bool IsEmailConfirmed,
+    string PhoneNumber
     );

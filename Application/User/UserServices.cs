@@ -10,9 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.User;
 
-public class UserServices(UserManager<ApplicationUser> manager) : IUserService
+public class UserServices(UserManager<ApplicationUser> manager , RoleManager<ApplicationRole> roleManager) : IUserService
 {
     private readonly UserManager<ApplicationUser> manager = manager;
+    private readonly RoleManager<ApplicationRole> roleManager = roleManager;
 
     public async Task<Result> ChangePassword(string id, ChangePasswordRequest request)
     {
@@ -42,7 +43,10 @@ public class UserServices(UserManager<ApplicationUser> manager) : IUserService
         
         if (Roles.Contains(NewRole))
             return Result.Failure(RolesErrors.haveit);
-        
+
+        if (!await roleManager.RoleExistsAsync(NewRole))
+            return Result.Failure(RolesErrors.notFound);
+
         var RemoveRoleResult = await manager.RemoveFromRolesAsync(User, Roles);
         
         if (!RemoveRoleResult.Succeeded)
