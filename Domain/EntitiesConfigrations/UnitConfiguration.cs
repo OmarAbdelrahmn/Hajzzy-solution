@@ -49,12 +49,6 @@ public class UnitConfiguration : IEntityTypeConfiguration<Unit>
 
         builder.HasIndex(u => new { u.Latitude, u.Longitude });
 
-        builder.HasIndex(u => u.OwnerId);
-
-        builder.HasOne(u => u.Owner)
-            .WithMany()
-            .HasForeignKey(u => u.OwnerId)
-            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(u => u.City)
             .WithMany(c => c.Units)

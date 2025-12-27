@@ -51,7 +51,7 @@ public class Notification
     public DateTime? DeletedAt { get; set; }
     // Navigation
     public ApplicationUser? CreatedBy { get; set; }
-    public City? TargetCity { get; set; }
+    public Department? TargetCity { get; set; }
     public Unit? TargetUnit { get; set; }
 
     public ICollection<UserNotification> UserNotifications { get; set; } = [];

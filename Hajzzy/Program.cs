@@ -1,6 +1,7 @@
 using Application;
 using Application.Notifications;
 using Hangfire;
+using Hangfire.Dashboard;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,18 +18,32 @@ var app = builder.Build();
     app.UseSwaggerUI();
 //}
 
+app.UseHangfireDashboard("/jobs", new DashboardOptions
+{
+    Authorization = [] // Empty array = no authorization
+});
 
-app.UseHangfireDashboard("/jobs");
 
 var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 using var scope = scopeFactory.CreateScope();
 var notificationService = scope.ServiceProvider.GetRequiredService<INotinficationService>();
 
-RecurringJob.AddOrUpdate("try daily news", () => notificationService.SendPharmacyNotification(), Cron.Daily);
+RecurringJob.AddOrUpdate<INotinficationService>(
+    "daily-news",
+    x => x.SendPharmacyNotification(),
+    Cron.Daily);
 
-RecurringJob.AddOrUpdate<INotinficationService>("try monthly news", x => x.SendPharmacyNotification(), Cron.Monthly);
+RecurringJob.AddOrUpdate<INotinficationService>(
+    "weekly-news",
+    x => x.SendPharmacyNotification(),
+    Cron.Weekly);
 
-RecurringJob.AddOrUpdate("try weekly news", () => notificationService.SendPharmacyNotification(), Cron.Weekly);
+RecurringJob.AddOrUpdate<INotinficationService>(
+    "monthly-news",
+    x => x.SendPharmacyNotification(),
+    Cron.Monthly);
+
+
 
 
 app.UseCors();

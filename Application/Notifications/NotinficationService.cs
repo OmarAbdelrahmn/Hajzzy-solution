@@ -23,7 +23,9 @@ public class NotinficationService(
 
     public async Task SendPharmacyNotification()
     {
-        IEnumerable<string> News = [];
+        IEnumerable<string> News = [
+            "hello"
+            ];
 
 
 
@@ -40,7 +42,7 @@ public class NotinficationService(
                     { "{{name}}", user.FullName?? "hello" },
                     { "{{pollTill}}", New },
                     { "{{endDate}}",$"{DateTime.UtcNow.AddDays(3)} "},
-                    //{ "{{url}}", $"{origin}/pharmacy/start/{Pharmacyi.Id}" }
+                    { "{{url}}", $"{origin}/pharmacy/start/{New}" }
                 };
 
                 var body = EmailBodyBuilder.GenerateEmailBody("hajzzy.Notification", placeholders);

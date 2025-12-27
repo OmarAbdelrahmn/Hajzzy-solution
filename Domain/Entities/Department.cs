@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Domain.Entities;
 
-public class City
+public class Department
   {
     public int Id { get; set; }
 
@@ -20,6 +20,9 @@ public class City
     public string? Description { get; set; }
 
     public string? ImageUrl { get; set; }
+
+    public decimal Latitude { get; set; }
+    public decimal Longitude { get; set; }
 
     public bool IsActive { get; set; } = true;
 

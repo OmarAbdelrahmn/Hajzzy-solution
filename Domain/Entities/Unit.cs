@@ -24,14 +24,11 @@ public class Unit
     public int CityId { get; set; }
     public int UnitTypeId { get; set; }
 
-    [Required]
-    public string OwnerId { get; set; } = string.Empty; // Unit Admin
-
     public decimal BasePrice { get; set; }
 
-    public int MaxGuests { get; set; }
-    public int Bedrooms { get; set; }
-    public int Bathrooms { get; set; }
+    public int? MaxGuests { get; set; }
+    public int? Bedrooms { get; set; }
+    public int? Bathrooms { get; set; }
 
     public bool IsActive { get; set; } = true;
     public bool IsVerified { get; set; } = false;
@@ -46,11 +43,12 @@ public class Unit
     public DateTime? DeletedAt { get; set; }
 
     // Navigation
-    public City City { get; set; } = default!;
+    public Department City { get; set; } = default!;
     public UnitType UnitType { get; set; } = default!;
-    public ApplicationUser Owner { get; set; } = default!;
+
     public int? CancellationPolicyId { get; set; }
     public CancellationPolicy? CancellationPolicy { get; set; }
+    public ICollection<UniteAdmin> Admins { get; set; } = [];
     public ICollection<UnitImage> Images { get; set; } = [];
     public ICollection<UnitAmenity> UnitAmenities { get; set; } = [];
     public ICollection<SubUnit> Rooms { get; set; } = [];

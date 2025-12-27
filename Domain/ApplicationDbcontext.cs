@@ -15,7 +15,7 @@ public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options
 
     public required DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public required DbSet<ApplicationRole> ApplicationRoles { get; set; }
-    public DbSet<City> Cities => Set<City>();
+    public DbSet<Department> Cities => Set<Department>();
     public DbSet<Unit> Units => Set<Unit>();
     public DbSet<UnitType> UnitTypes => Set<UnitType>();
     public DbSet<SubUnit> Rooms => Set<SubUnit>();

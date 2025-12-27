@@ -69,6 +69,27 @@ public class UnitTypeConfiguration : IEntityTypeConfiguration<UnitType>
                     Name = "Guest House",
                     Description = "Cozy guest house with homely atmosphere",
                     IsActive = true
+                },
+                new UnitType
+                {
+                    Id = DefaultUnitTypes.hall,
+                    Name = "Hall",
+                    Description = "A wedding Hall",
+                    IsActive = true
+                },
+                new UnitType
+                {
+                    Id = DefaultUnitTypes.shalet,
+                    Name = "Chalet",
+                    Description = "A Chalet",
+                    IsActive = true
+                },
+                new UnitType
+                {
+                    Id = DefaultUnitTypes.Camp,
+                    Name = "A Camp",
+                    Description = "A Camp",
+                    IsActive = true
                 }
             ]
         );

@@ -9,9 +9,9 @@ using System.Text;
 namespace Domain.EntitiesConfigrations;
 
 
-public class CityConfiguration : IEntityTypeConfiguration<City>
+public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
 {
-    public void Configure(EntityTypeBuilder<City> builder)
+    public void Configure(EntityTypeBuilder<Department> builder)
     {
         builder.HasKey(c => c.Id);
 
@@ -32,7 +32,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         // Seed data
         builder.HasData(
 [
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AbyanId,
         Name = DefaultYemenDepartments.AbyanName,
@@ -41,7 +41,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AdenId,
         Name = DefaultYemenDepartments.AdenName,
@@ -50,7 +50,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AlBaydaId,
         Name = DefaultYemenDepartments.AlBaydaName,
@@ -59,7 +59,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AlDhaleId,
         Name = DefaultYemenDepartments.AlDhaleName,
@@ -68,7 +68,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AlHudaydahId,
         Name = DefaultYemenDepartments.AlHudaydahName,
@@ -77,7 +77,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AlJawfId,
         Name = DefaultYemenDepartments.AlJawfName,
@@ -86,7 +86,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AlMahrahId,
         Name = DefaultYemenDepartments.AlMahrahName,
@@ -95,7 +95,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AlMahwitId,
         Name = DefaultYemenDepartments.AlMahwitName,
@@ -104,7 +104,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AmanatAlAsimahId,
         Name = DefaultYemenDepartments.AmanatAlAsimahName,
@@ -113,7 +113,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.AmranId,
         Name = DefaultYemenDepartments.AmranName,
@@ -122,7 +122,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.DhamarId,
         Name = DefaultYemenDepartments.DhamarName,
@@ -131,7 +131,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.HadhramautId,
         Name = DefaultYemenDepartments.HadhramautName,
@@ -140,7 +140,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.HajjahId,
         Name = DefaultYemenDepartments.HajjahName,
@@ -149,7 +149,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.IbbId,
         Name = DefaultYemenDepartments.IbbName,
@@ -158,7 +158,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.LahijId,
         Name = DefaultYemenDepartments.LahijName,
@@ -167,7 +167,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.MaribId,
         Name = DefaultYemenDepartments.MaribName,
@@ -176,7 +176,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.RaymahId,
         Name = DefaultYemenDepartments.RaymahName,
@@ -185,7 +185,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.SaadaId,
         Name = DefaultYemenDepartments.SaadaName,
@@ -194,7 +194,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.ShabwahId,
         Name = DefaultYemenDepartments.ShabwahName,
@@ -203,7 +203,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.SocotraId,
         Name = DefaultYemenDepartments.SocotraName,
@@ -212,7 +212,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         IsActive = true,
         CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
     },
-    new City
+    new Department
     {
         Id = DefaultYemenDepartments.TaizId,
         Name = DefaultYemenDepartments.TaizName,

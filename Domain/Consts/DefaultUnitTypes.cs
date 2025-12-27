@@ -12,4 +12,7 @@ public static class DefaultUnitTypes
     public const int ResortId = 4;
     public const int HostelId = 5;
     public const int GuestHouseId = 6;
+    public const int hall = 7;
+    public const int Camp = 8;
+    public const int shalet = 9;
 }

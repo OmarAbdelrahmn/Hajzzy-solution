@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities;
 
-public class UnitAmenity
+public class SubUniteAmenity
 {
     public int Id { get; set; }
     public int UnitId { get; set; }
@@ -13,6 +13,6 @@ public class UnitAmenity
     public bool IsAvailable { get; set; } = true;
 
     // Navigation
-    public Unit Unit { get; set; } = default!;
+    public SubUnit Unit { get; set; } = default!;
     public Amenity Amenity { get; set; } = default!;
 }

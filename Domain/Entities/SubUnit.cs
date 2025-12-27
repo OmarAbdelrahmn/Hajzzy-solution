@@ -34,4 +34,6 @@ public class SubUnit
     // Navigation
     public Unit Unit { get; set; } = default!;
     public ICollection<BookingRoom> BookingRooms { get; set; } = [];
+    public ICollection<SubUniteAmenity> SubUnitAmenities { get; set; } = [];
+
 }

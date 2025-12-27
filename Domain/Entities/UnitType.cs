@@ -16,7 +16,6 @@ public class UnitType
     [MaxLength(200)]
     public string? Description { get; set; }
 
-    public string? IconUrl { get; set; }
 
     public bool IsActive { get; set; } = true;
 

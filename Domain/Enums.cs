@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Domain;
+﻿namespace Domain;
 
 
 public enum BookingStatus
@@ -106,4 +102,386 @@ public enum SubUnitType
     RVSpace,
     Apartment,
     Cabin
+}
+public enum AmenityCategory
+{
+    // General / Property level
+    Basic,
+    Services,
+    Cleanliness,
+    Transportation,
+
+    // Rooms
+    Room,
+    Bedroom,
+    Bathroom,
+    Kitchen,
+
+    // Food & Beverage
+    FoodAndDrink,
+
+    // Entertainment & Leisure
+    Entertainment,
+    Wellness,
+    Outdoor,
+    Activities,
+
+    // Business & Events
+    Business,
+    Events,
+
+    // Safety & Security
+    Safety,
+
+    // Accessibility
+    Accessibility,
+
+    // Pets
+    Pets
+}
+
+public enum AmenityName
+{
+    // ===== BASIC / GENERAL =====
+    Wifi,
+    FreeWifi,
+    PaidWifi,
+    AirConditioning,
+    Heating,
+    ElectricityBackup,
+    Parking,
+    FreeParking,
+    PaidParking,
+    ValetParking,
+    StreetParking,
+    GarageParking,
+    Elevator,
+    LuggageStorage,
+    Reception24Hours,
+    ExpressCheckIn,
+    ExpressCheckOut,
+    Concierge,
+    WakeUpService,
+    DailyHousekeeping,
+    LaundryService,
+    DryCleaning,
+    IroningService,
+    CurrencyExchange,
+    ATMOnSite,
+    GiftShop,
+    MiniMarket,
+    SmokingArea,
+    NonSmokingRooms,
+    FamilyRooms,
+    SoundproofRooms,
+
+    // ===== ROOM FEATURES =====
+    TV,
+    SmartTV,
+    CableTV,
+    SatelliteTV,
+    StreamingServices,
+    Desk,
+    SeatingArea,
+    Sofa,
+    Wardrobe,
+    Closet,
+    Minibar,
+    Refrigerator,
+    Microwave,
+    ElectricKettle,
+    CoffeeMachine,
+    TeaMaker,
+    DiningTable,
+    SafeBox,
+    Iron,
+    IroningBoard,
+    AlarmClock,
+    CarpetedFloor,
+    HardwoodFloor,
+    PrivateEntrance,
+    Balcony,
+    Terrace,
+    Patio,
+    GardenView,
+    CityView,
+    SeaView,
+    MountainView,
+    PoolView,
+
+    // ===== BEDROOM =====
+    ExtraLongBeds,
+    SofaBed,
+    BabyCot,
+    CribsAvailable,
+    HypoallergenicBedding,
+    BlackoutCurtains,
+
+    // ===== BATHROOM =====
+    PrivateBathroom,
+    SharedBathroom,
+    Shower,
+    WalkInShower,
+    Bathtub,
+    JacuzziBathtub,
+    Bidet,
+    Toilet,
+    ToiletPaper,
+    Towels,
+    Bathrobes,
+    Slippers,
+    HairDryer,
+    FreeToiletries,
+    Shampoo,
+    Conditioner,
+    BodySoap,
+
+    // ===== KITCHEN =====
+    Kitchen,
+    Kitchenette,
+    Oven,
+    Stove,
+    Dishwasher,
+    WashingMachine,
+    Dryer,
+    Toaster,
+    Blender,
+    CookingUtensils,
+
+    // ===== FOOD & DRINK =====
+    Restaurant,
+    BuffetRestaurant,
+    ALaCarteRestaurant,
+    RoomService,
+    BreakfastIncluded,
+    BreakfastBuffet,
+    ContinentalBreakfast,
+    HalalFood,
+    VegetarianFood,
+    VeganOptions,
+    Bar,
+    PoolBar,
+    SnackBar,
+    Cafe,
+    CoffeeShop,
+    VendingMachines,
+    GroceryDelivery,
+
+    // ===== ENTERTAINMENT & LEISURE =====
+    SwimmingPool,
+    OutdoorPool,
+    IndoorPool,
+    HeatedPool,
+    InfinityPool,
+    KidsPool,
+    WaterPark,
+    Gym,
+    FitnessCenter,
+    PersonalTrainer,
+    Spa,
+    WellnessCenter,
+    Sauna,
+    SteamRoom,
+    Hammam,
+    Jacuzzi,
+    MassageService,
+    BeautySalon,
+    YogaClasses,
+    Aerobics,
+    NightClub,
+    LiveMusic,
+    DJ,
+    CinemaRoom,
+    GameRoom,
+    Billiards,
+    TableTennis,
+    Bowling,
+    Darts,
+    Karaoke,
+    Library,
+    TVLounge,
+    KidsPlayArea,
+    KidsClub,
+    BabysittingService,
+
+    // ===== OUTDOOR & ACTIVITIES =====
+    Garden,
+    SunTerrace,
+    PicnicArea,
+    BBQFacilities,
+    BeachAccess,
+    PrivateBeach,
+    BeachUmbrellas,
+    BeachChairs,
+    WaterSports,
+    Diving,
+    Snorkeling,
+    Canoeing,
+    Fishing,
+    HorseRiding,
+    Hiking,
+    Cycling,
+    BikeRental,
+
+    // ===== BUSINESS & EVENTS =====
+    BusinessCenter,
+    MeetingRooms,
+    ConferenceHall,
+    BanquetHall,
+    WeddingServices,
+    Fax,
+    Photocopying,
+    HighSpeedInternet,
+
+    // ===== TRANSPORTATION =====
+    AirportShuttle,
+    PaidAirportShuttle,
+    CarRental,
+    TaxiService,
+    ShuttleService,
+    PublicTransportNearby,
+    EVChargingStation,
+
+    // ===== SAFETY & SECURITY =====
+    FireExtinguishers,
+    SmokeDetectors,
+    CarbonMonoxideDetector,
+    CCTV,
+    Security24Hours,
+    KeyCardAccess,
+    ElectronicDoorLocks,
+    SafeDepositBox,
+    FirstAidKit,
+    EmergencyExitSigns,
+
+    // ===== ACCESSIBILITY =====
+    WheelchairAccessible,
+    AccessibleParking,
+    AccessibleBathroom,
+    GrabRails,
+    LoweredSink,
+    BrailleSignage,
+    VisualAids,
+    HearingAccessible,
+
+    // ===== PETS =====
+    PetsAllowed,
+    PetsNotAllowed,
+    PetBowls,
+    PetBasket,
+    PetSittingService,
+
+    // ===== SERVICES =====
+    TourDesk,
+    TicketService,
+    TourOrganization,
+    LocalGuides,
+    Lockers,
+
+    // ===== CLEANLINESS & HEALTH =====
+    EnhancedCleaning,
+    ContactlessCheckIn,
+    HandSanitizer,
+    TemperatureCheck,
+    MedicalAssistance
+}
+
+public enum GeneralPolicyCategory
+{
+    HouseRules,
+    CheckInAndCheckOut,
+    CancellationAndRefund,
+    Payment,
+    ChildrenAndBeds,
+    Pets,
+    Smoking,
+    DamageAndLiability,
+    SafetyAndSecurity,
+    QuietHours,
+    Accessibility,
+    FacilitiesUsage,
+    LegalAndCompliance,
+    Other
+}
+
+public enum GeneralPolicyName
+{
+    // ===== CHECK-IN / CHECK-OUT =====
+    CheckInTime,
+    CheckOutTime,
+    EarlyCheckIn,
+    LateCheckOut,
+    SelfCheckIn,
+    IDRequirement,
+    MinimumAge,
+
+    // ===== CANCELLATION & PAYMENT =====
+    FreeCancellation,
+    NonRefundable,
+    PartialRefund,
+    PaymentMethods,
+    PrepaymentRequired,
+    DepositRequired,
+    TaxesAndFees,
+    CityTax,
+
+    // ===== HOUSE RULES =====
+    QuietHours,
+    PartiesAndEvents,
+    VisitorsPolicy,
+    Curfew,
+    MaximumOccupancy,
+
+    // ===== CHILDREN & BEDS =====
+    ChildrenAllowed,
+    ChildrenFreeStay,
+    ExtraBeds,
+    BabyCots,
+    AgeRestrictions,
+
+    // ===== PETS =====
+    PetsAllowed,
+    PetsNotAllowed,
+    PetFees,
+    PetRestrictions,
+
+    // ===== SMOKING =====
+    SmokingAllowed,
+    NonSmokingProperty,
+    SmokingAreas,
+
+    // ===== DAMAGE & LIABILITY =====
+    DamageDeposit,
+    LiabilityDisclaimer,
+    LostAndFound,
+    PropertyDamage,
+
+    // ===== SAFETY & SECURITY =====
+    FireSafety,
+    EmergencyProcedures,
+    CCTVPolicy,
+    SecurityPolicy,
+
+    // ===== ACCESSIBILITY =====
+    WheelchairAccess,
+    AccessibleRooms,
+    ServiceAnimals,
+
+    // ===== FACILITY USAGE =====
+    PoolRules,
+    GymRules,
+    SpaRules,
+    ParkingRules,
+    ElevatorRules,
+
+    // ===== LEGAL & COMPLIANCE =====
+    LocalLaws,
+    GovernmentID,
+    DataPrivacy,
+    TermsAndConditions,
+
+    // ===== OTHER =====
+    ForceMajeure,
+    SpecialRequests,
+    Disclaimer
 }

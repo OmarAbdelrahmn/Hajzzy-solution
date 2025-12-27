@@ -41,7 +41,7 @@ public class Coupon
 
     // Navigation
     public Unit? TargetUnit { get; set; }
-    public City? TargetCity { get; set; }
+    public Department? TargetCity { get; set; }
     public UnitType? TargetUnitType { get; set; }
 
     public ICollection<BookingCoupon> BookingCoupons { get; set; } = [];

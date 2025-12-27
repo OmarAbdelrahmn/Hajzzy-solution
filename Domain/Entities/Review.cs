@@ -30,8 +30,8 @@ public class Review
     [Range(1, 5)]
     public int ValueRating { get; set; }
 
-    [Required, MaxLength(2000)]
-    public string Comment { get; set; } = string.Empty;
+    [MaxLength(2000)]
+    public string? Comment { get; set; } = string.Empty;
 
     [MaxLength(1000)]
     public string? OwnerResponse { get; set; }
