@@ -42,6 +42,9 @@ public class Unit
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 
+    public bool IsDeleted { get; set; } = false;
+    public DateTime? DeletedAt { get; set; }
+
     // Navigation
     public City City { get; set; } = default!;
     public UnitType UnitType { get; set; } = default!;
@@ -50,7 +53,7 @@ public class Unit
     public CancellationPolicy? CancellationPolicy { get; set; }
     public ICollection<UnitImage> Images { get; set; } = [];
     public ICollection<UnitAmenity> UnitAmenities { get; set; } = [];
-    public ICollection<Room> Rooms { get; set; } = [];
+    public ICollection<SubUnit> Rooms { get; set; } = [];
     public ICollection<Booking> Bookings { get; set; } = [];
     public ICollection<Review> Reviews { get; set; } = [];
     public ICollection<UnitAvailability> Availabilities { get; set; } = [];

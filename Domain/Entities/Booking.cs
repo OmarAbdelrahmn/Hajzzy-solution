@@ -41,6 +41,9 @@ public class Booking
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 
+    public bool IsDeleted { get; set; } = false;
+    public DateTime? DeletedAt { get; set; }
+
     // Navigation
     public Unit Unit { get; set; } = default!;
     public ApplicationUser User { get; set; } = default!;

@@ -8,9 +8,9 @@ using System.Text;
 namespace Domain.EntitiesConfigrations;
 
 
-public class RoomConfiguration : IEntityTypeConfiguration<Room>
+public class RoomConfiguration : IEntityTypeConfiguration<SubUnit>
 {
-    public void Configure(EntityTypeBuilder<Room> builder)
+    public void Configure(EntityTypeBuilder<SubUnit> builder)
     {
         builder.HasKey(r => r.Id);
 

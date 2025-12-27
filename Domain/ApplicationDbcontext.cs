@@ -18,7 +18,7 @@ public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options
     public DbSet<City> Cities => Set<City>();
     public DbSet<Unit> Units => Set<Unit>();
     public DbSet<UnitType> UnitTypes => Set<UnitType>();
-    public DbSet<Room> Rooms => Set<Room>();
+    public DbSet<SubUnit> Rooms => Set<SubUnit>();
     public DbSet<Amenity> Amenities => Set<Amenity>();
     public DbSet<Booking> Bookings => Set<Booking>();
     public DbSet<Review> Reviews => Set<Review>();

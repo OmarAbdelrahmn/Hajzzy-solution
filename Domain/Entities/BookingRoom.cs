@@ -14,5 +14,5 @@ public class BookingRoom
 
     // Navigation
     public Booking Booking { get; set; } = default!;
-    public Room Room { get; set; } = default!;
+    public SubUnit Room { get; set; } = default!;
 }

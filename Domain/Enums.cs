@@ -96,3 +96,14 @@ public enum LoyaltyTier
     Gold = 2,
     Platinum = 3
 }
+
+public enum SubUnitType
+{
+    Room,
+    Cottage,
+    Villa,
+    TentSite,
+    RVSpace,
+    Apartment,
+    Cabin
+}

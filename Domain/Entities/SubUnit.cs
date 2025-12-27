@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Entities;
 
-public class Room
+public class SubUnit
 {
     public int Id { get; set; }
 
@@ -17,6 +17,8 @@ public class Room
     [Required, MaxLength(100)]
     public string RoomType { get; set; } = string.Empty; // Single, Double, Suite
 
+    public SubUnitType Type { get; set; } // Room, Cottage, Tent, RVSpace
+
     public decimal PricePerNight { get; set; }
 
     public int MaxOccupancy { get; set; }
@@ -25,6 +27,9 @@ public class Room
 
     [MaxLength(500)]
     public string? Description { get; set; }
+
+    public bool IsDeleted { get; set; } = false;
+    public DateTime? DeletedAt { get; set; }
 
     // Navigation
     public Unit Unit { get; set; } = default!;
